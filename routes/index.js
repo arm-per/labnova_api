@@ -1,11 +1,17 @@
+const express = require("express")
+
 const labsRouter = require("./labsRouter"),
   locationsRouter = require("./locationsRouter"),
   perfilesRouter = require("./perfilesRouter");
 
 function routerApi ( app ) {
-  app.use("/labs", labsRouter);
-  app.use("/locations", locationsRouter);
-  app.use("/perfiles", perfilesRouter)
+
+  const router = express.Router();
+  app.use("/api/v1", router); //Aquí se crea un path global
+
+  router.use("/labs", labsRouter);
+  router.use("/locations", locationsRouter);
+  router.use("/perfiles", perfilesRouter)
 }
 
 module.exports = routerApi;

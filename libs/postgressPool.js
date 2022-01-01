@@ -1,17 +1,10 @@
-const { Client } = require("pg");
+const { Pool } = require("pg");
+const { config } = require("./../config/config");
+const USER = encodeURIComponent(config.dbUser);
+const PASSWORD = encodeURIComponent(config.dbPassword);
+const URI = `postgresql://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 
-async function getConnection () {
-  const client = new Client({
-    host: "localhost",
-    port: 5433,
-    user: "nova",
-    password: "L4Bnova",
-    database: "nova_db"
-  })
 
-  await client.connect();
+const pool = new Pool({connectionString:URI})
 
-  return client;
-}
-
-module.exports = getConnection;
+module.exports = pool;
